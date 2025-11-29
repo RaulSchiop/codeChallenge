@@ -1,5 +1,6 @@
 package org.example.backend.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.example.backend.Enums.AdSpaceEnums.Availability;
@@ -23,6 +24,7 @@ public class AdSpace {
     private String name;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private Type type;
 
     @Column(nullable = false)
@@ -32,6 +34,7 @@ public class AdSpace {
     private Float pricePerDay;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private Availability status;
 
     @CreationTimestamp
@@ -41,6 +44,7 @@ public class AdSpace {
     private LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "adSpace", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<BookingRequest> bookings;
 
 }
