@@ -22,6 +22,8 @@ export interface BookingSliceType {
    fetchBookinngs: () => void;
    createBooking: (payload: BookingRequestPayloadFetch) => void;
    getBookings: () => void;
+   approveBooking: (id: number) => void;
+   rejectBooking: (id: number) => void;
 }
 
 export interface BookingRequestPayload {

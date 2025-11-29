@@ -20,6 +20,9 @@ import { useEffect, useState } from "react";
 export default function BookingRequestList() {
    const bookings = useStore((state) => state.bookings || []);
    const getBookings = useStore((state) => state.getBookings);
+   const rejectBooking = useStore((state) => state.rejectBooking);
+   const approveBooking = useStore((state) => state.approveBooking);
+
    const loading = useStore((state) => state.loading);
 
    const [status, setStatus] = useState("");
@@ -77,7 +80,7 @@ export default function BookingRequestList() {
 
                   return matchesStatus;
                })
-               .map((space, index) => (
+               .map((booking, index) => (
                   <Box key={index}>
                      <Paper
                         key={index}
@@ -103,18 +106,18 @@ export default function BookingRequestList() {
                            >
                               <Box>
                                  <Typography variant="h6" fontWeight={600}>
-                                    {space.adSpaceName}
+                                    {booking.adSpaceName}
                                  </Typography>
                                  <Typography color="text.secondary">
-                                    {space.advertiserName}
+                                    {booking.advertiserName}
                                  </Typography>
                               </Box>
 
                               <Typography variant="body1" fontWeight={500}>
-                                 start: {space.startDate}
+                                 start: {booking.startDate}
                               </Typography>
                               <Typography variant="body1" fontWeight={500}>
-                                 end: {space.endDate}
+                                 end: {booking.endDate}
                               </Typography>
 
                               <Typography
@@ -127,18 +130,21 @@ export default function BookingRequestList() {
                                     fontWeight: 600,
                                  }}
                                  color={`${
-                                    space.status === "Pending"
+                                    booking.status === "Pending"
                                        ? "black"
-                                       : space.status === "Approved"
+                                       : booking.status === "Approved"
                                        ? "green"
-                                       : space.status === "Rejected" && "red"
+                                       : booking.status === "Rejected" && "red"
                                  }`}
                               >
-                                 {space.status}
+                                 {booking.status}
                               </Typography>
                               <Box>
-                                 {space.status === "Pending" && (
+                                 {booking.status === "Pending" && (
                                     <Button
+                                       onClick={() =>
+                                          approveBooking(booking.id)
+                                       }
                                        variant="contained"
                                        size="small"
                                        sx={{
@@ -152,8 +158,9 @@ export default function BookingRequestList() {
                                        Approve
                                     </Button>
                                  )}
-                                 {space.status === "Pending" && (
+                                 {booking.status === "Pending" && (
                                     <Button
+                                       onClick={() => rejectBooking(booking.id)}
                                        variant="contained"
                                        size="small"
                                        sx={{
