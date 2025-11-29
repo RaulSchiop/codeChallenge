@@ -13,7 +13,7 @@ export const createAdSpaceSlice: StateCreator<AdSpaceSliceType> = (
    loading: false,
    error: undefined,
 
-   //setError
+
  
    // Fetch adSpaces
    fetchAdSpaces: async () => {
@@ -30,6 +30,4 @@ export const createAdSpaceSlice: StateCreator<AdSpaceSliceType> = (
       }
    },
 
-   // Fetch adSpace by ID
-   fetchAdSpaceOnId: async (id: number) => {},
 });

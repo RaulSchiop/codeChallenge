@@ -20,7 +20,7 @@ public class BookingRequestMapper {
         return dto;
     }
 
-
+ //dto -> entity
     public static BookingRequest toEntity(BookingRequestDTO dto, AdSpace adSpace) {
         BookingRequest entity = new BookingRequest();
         entity.setAdSpace(adSpace);

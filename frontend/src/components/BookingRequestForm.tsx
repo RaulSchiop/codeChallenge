@@ -42,6 +42,8 @@ export default function BookingRequestForm({
    });
    const error = useStore((state) => state.errorB);
    const setError = useStore((state) => state.setError);
+   const createBooking = useStore((state) => state.createBooking);
+
    console.log(formData);
    useEffect(() => {
       if (formData.startDate && formData.endDate) {
@@ -95,18 +97,17 @@ export default function BookingRequestForm({
    };
    const handleSubmit = async () => {
       try {
-         
          const formattedData = {
             ...formData,
             startDate: dayjs(formData.startDate).format("YYYY-MM-DD"),
             endDate: dayjs(formData.endDate).format("YYYY-MM-DD"),
          };
+         console.log(formattedData);
 
-         
          bookingRequestSchema.parse(formData);
 
-         
-         await addBooking(formattedData);
+         const res = await createBooking(formattedData);
+
          handleClose();
          setError("");
       } catch (err: any) {

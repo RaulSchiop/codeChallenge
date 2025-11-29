@@ -2,8 +2,10 @@ import { StateCreator } from "zustand";
 import {
    BookingSliceType,
    BookingRequestPayload,
+   BookingRequestPayloadFetch,
 } from "../../types/sliceTypes/SliceTypes";
 import { BookingDTO } from "../../types/BookingTypes";
+import { addBooking, getBookings } from "../../api/booking";
 
 export const createBookingSlice: StateCreator<BookingSliceType> = (
    set,
@@ -20,7 +22,32 @@ export const createBookingSlice: StateCreator<BookingSliceType> = (
    fetchBookinngs: async () => {},
 
    // Create booking
-   createBooking: async (payload: BookingRequestPayload) => {
-      set({ loading: true, errorB: undefined });
+   createBooking: async (payload: BookingRequestPayloadFetch) => {
+      try {
+         set({ loading: true, errorB: undefined });
+         const data = await addBooking(payload);
+
+         set({ bookings: data, loading: false });
+      } catch (err: any) {
+         set({
+            errorB: err.message || "Failed to get ad spaces",
+            loading: false,
+         });
+      }
+   },
+
+   // Get bookings
+   getBookings: async () => {
+      try {
+         set({ loading: true, errorB: undefined });
+         const data = await getBookings();
+
+         set({ bookings: data, loading: false });
+      } catch (err: any) {
+         set({
+            errorB: err.message || "Failed to get ad spaces",
+            loading: false,
+         });
+      }
    },
 });

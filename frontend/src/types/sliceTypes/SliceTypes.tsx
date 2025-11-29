@@ -11,7 +11,6 @@ export interface AdSpaceSliceType {
    error?: string;
 
    fetchAdSpaces: () => void;
-   fetchAdSpaceOnId: (id: number) => void;
 }
 
 // Zustand slice type for Booking
@@ -21,7 +20,8 @@ export interface BookingSliceType {
    errorB?: string;
    setError: (mesage: string) => void;
    fetchBookinngs: () => void;
-   createBooking: (payload: BookingRequestPayload) => void;
+   createBooking: (payload: BookingRequestPayloadFetch) => void;
+   getBookings: () => void;
 }
 
 export interface BookingRequestPayload {
