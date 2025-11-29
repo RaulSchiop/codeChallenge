@@ -1,5 +1,5 @@
 
-import { AdSpaceType } from "../enums/AdSpceEnums";
+import { AdSpaceAvailability, AdSpaceType } from "../enums/AdSpceEnums";
 
 
 export interface AdSpaceDTO {
@@ -8,6 +8,7 @@ export interface AdSpaceDTO {
   type: AdSpaceType;
   location: string;
   pricePerDay: number;
+  availability:AdSpaceAvailability
 }
 
 

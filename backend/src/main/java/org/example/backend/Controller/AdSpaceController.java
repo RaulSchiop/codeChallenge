@@ -2,8 +2,7 @@ package org.example.backend.Controller;
 
 
 import org.example.backend.Dto.AdSpace.AdSpaceDTO;
-import org.example.backend.Entity.AdSpace;
-import org.example.backend.Service.AddSpaceService;
+import org.example.backend.Service.AdSpaceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,10 +16,10 @@ import java.util.List;
 @RequestMapping("/api/v1/ad-spaces")
 public class AdSpaceController {
 
-    private final AddSpaceService addSpaceService;
+    private final AdSpaceService addSpaceService;
 
     @Autowired
-    public AdSpaceController(AddSpaceService addSpaceService) {
+    public AdSpaceController(AdSpaceService addSpaceService) {
         this.addSpaceService = addSpaceService;
     }
 

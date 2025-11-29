@@ -11,6 +11,7 @@ public class AdSpaceMapper {
         dto.setLocation(adSpace.getLocation());
         dto.setPricePerDay(adSpace.getPricePerDay());
         dto.setType(adSpace.getType());
+        dto.setAvailability(adSpace.getStatus());
         return dto;
     }
 }

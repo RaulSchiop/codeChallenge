@@ -7,19 +7,16 @@ import org.example.backend.Repository.AdSpaceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
-import static java.util.stream.Collectors.toList;
-
 @Service
-public class AddSpaceService {
+public class AdSpaceService {
 
     private final AdSpaceRepository adSpaceRepository;
 
     @Autowired
-    public AddSpaceService(AdSpaceRepository adSpaceRepository) {
+    public AdSpaceService(AdSpaceRepository adSpaceRepository) {
         this.adSpaceRepository = adSpaceRepository;
     }
 
