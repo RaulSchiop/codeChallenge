@@ -26,11 +26,11 @@ public class AddSpaceService {
     }
 
 
-    public ResponseEntity<?> getAdSpaceById( long id) {
+    public ResponseEntity<AdSpace> getAdSpaceById( long id) {
 
         return adSpaceRepository.findById(id)
                 .map(adSpace -> ResponseEntity.ok().body(adSpace))
-                .orElseGet(() -> ResponseEntity.status(404).build());
+                .orElseGet(() -> ResponseEntity.status(404).body(null));
 
     }
 

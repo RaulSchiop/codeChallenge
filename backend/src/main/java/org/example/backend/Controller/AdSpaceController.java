@@ -33,7 +33,7 @@ public class AdSpaceController {
 
     //GET /api/v1/ad-spaces/{id}
     @GetMapping("/{id}")
-    public ResponseEntity<?> getAdSpaceById( @PathVariable Long id) {
+    public ResponseEntity<AdSpace> getAdSpaceById( @PathVariable Long id) {
 
         return addSpaceService.getAdSpaceById(id);
     }
