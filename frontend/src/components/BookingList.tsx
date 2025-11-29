@@ -34,7 +34,8 @@ export default function BookingRequestList() {
 
    useEffect(() => {
       getBookings();
-   }, [getBookings, bookings]);
+      setStatus("Pending");
+   }, [getBookings]);
 
    return (
       <Box p={4}>

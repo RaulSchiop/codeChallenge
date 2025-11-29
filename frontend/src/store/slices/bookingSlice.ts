@@ -30,17 +30,20 @@ export const createBookingSlice: StateCreator<BookingSliceType> = (
    createBooking: async (payload: BookingRequestPayloadFetch) => {
       try {
          set({ loading: true, errorB: undefined });
-         const data = await addBooking(payload);
+         const newBooking = await addBooking(payload);
 
-         set({ bookings: data, loading: false });
+         set((state) => ({
+            bookings: [...state.bookings, newBooking],
+            loading: false,
+         }));
       } catch (err: any) {
          set({
-            errorB: err.message || "Failed to get ad spaces",
+            errorB: err.message || "Failed to create booking",
             loading: false,
          });
       }
    },
-
+   
    // Get bookings
    getBookings: async () => {
       try {
