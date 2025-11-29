@@ -14,6 +14,6 @@ public class AdSpaceDTO {
     private String location;
     private Float pricePerDay;
     private Availability availability;
-    
+
 
 }
