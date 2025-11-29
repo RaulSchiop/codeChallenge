@@ -8,7 +8,7 @@ import java.util.Optional;
 
 
 @Repository
-public interface AdSpaceRepository extends JpaRepository<AdSpace,Long> {
+public interface AdSpaceRepository extends JpaRepository<AdSpace,Integer> {
     Optional<AdSpace> findById(Long id);
 
 }
