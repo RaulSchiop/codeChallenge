@@ -11,6 +11,7 @@ public class BookingRequestMapper {
     // entity -> DTO
     public static BookingDTO toDto(BookingRequest bookingRequest) {
         BookingDTO dto = new BookingDTO();
+        dto.setId(bookingRequest.getId());
         dto.setAdSpaceName(bookingRequest.getAdSpace().getName());
         dto.setAdvertiserName(bookingRequest.getAdvertiserName());
         dto.setStartDate(bookingRequest.getStartDate());
@@ -23,6 +24,7 @@ public class BookingRequestMapper {
  //dto -> entity
     public static BookingRequest toEntity(BookingRequestDTO dto, AdSpace adSpace) {
         BookingRequest entity = new BookingRequest();
+
         entity.setAdSpace(adSpace);
         entity.setAdvertiserName(dto.getAdvertiserName());
         entity.setAdvertiserEmail(dto.getAdvertiserEmail());

@@ -1,10 +1,11 @@
-import {BookingStatus} from "../enums/BookingEnums"
+import { BookingStatus } from "../enums/BookingEnums";
 
 export interface BookingDTO {
-  adSpaceName: string;
-  advertiserName: string;
-  startDate: string; 
-  endDate: string;   
-  status: BookingStatus;
-  totalCost: number;
+   id: number;
+   adSpaceName: string;
+   advertiserName: string;
+   startDate: string;
+   endDate: string;
+   status: BookingStatus;
+   totalCost: number;
 }

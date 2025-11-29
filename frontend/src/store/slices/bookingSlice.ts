@@ -52,15 +52,23 @@ export const createBookingSlice: StateCreator<BookingSliceType> = (
    },
 
    //reject booking
-   rejectBooking: async (id:number) => {
+   rejectBooking: async (id: number, newStatus: string) => {
       try {
          set({ loading: true, errorB: undefined });
-         const data = await approveBooking(id);
 
-         set({ bookings: data, loading: false });
+         // Call API to update the booking status
+         const updatedBooking = await approveBooking(id); // returns the updated booking with new status
+
+         // Update only the changed fields in state
+         set((state) => ({
+            bookings: state.bookings.map((booking) =>
+               booking.id === id ? { ...booking, ...updatedBooking } : booking
+            ),
+            loading: false,
+         }));
       } catch (err: any) {
          set({
-            errorB: err.message || "Failed to get ad spaces",
+            errorB: err.message || "Failed to update booking",
             loading: false,
          });
       }
