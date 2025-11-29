@@ -1,17 +1,21 @@
 import { BookingDTO } from "../BookingTypes";
 import { AdSpaceDTO } from "../AdSpaceTypes";
 
+
+// Zustand store type Main
+export interface StoreState extends AdSpaceSliceType, BookingSliceType {}
+
 // Zustand slice type for AdSpaceSlice
-export interface AdSpaceSlice {
+export interface AdSpaceSliceType {
    adSpaces: AdSpaceDTO[];
    loading: boolean;
    error?: string;
    fetchAdSpaces: () => void;
-   fetchAdSpaceOnId: () => void;
+   fetchAdSpaceOnId: (id:number) => void;
 }
 
 // Zustand slice type for Booking
-export interface BookingSlice {
+export interface BookingSliceType {
    bookings: BookingDTO[];
    loading: boolean;
    error?: string;
