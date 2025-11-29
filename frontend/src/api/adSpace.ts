@@ -9,5 +9,6 @@ export const fetchAdSpaces = async () => {
       return res.json();
    } catch (err) {
       console.log(err);
+      throw err;
    }
 };

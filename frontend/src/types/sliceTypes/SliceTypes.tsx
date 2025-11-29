@@ -1,7 +1,6 @@
 import { BookingDTO } from "../BookingTypes";
 import { AdSpaceDTO } from "../AdSpaceTypes";
 
-
 // Zustand store type Main
 export interface StoreState extends AdSpaceSliceType, BookingSliceType {}
 
@@ -10,15 +9,17 @@ export interface AdSpaceSliceType {
    adSpaces: AdSpaceDTO[];
    loading: boolean;
    error?: string;
+
    fetchAdSpaces: () => void;
-   fetchAdSpaceOnId: (id:number) => void;
+   fetchAdSpaceOnId: (id: number) => void;
 }
 
 // Zustand slice type for Booking
 export interface BookingSliceType {
    bookings: BookingDTO[];
    loading: boolean;
-   error?: string;
+   errorB?: string;
+   setError: (mesage: string) => void;
    fetchBookinngs: () => void;
    createBooking: (payload: BookingRequestPayload) => void;
 }
@@ -40,4 +41,3 @@ export interface BookingRequestPayload {
 //   "status": "Pending",
 //   "totalCost": 5000
 // }
-

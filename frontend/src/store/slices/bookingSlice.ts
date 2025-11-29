@@ -1,20 +1,26 @@
-import { StateCreator } from 'zustand';
-import { BookingSliceType, BookingRequestPayload } from '../../types/sliceTypes/SliceTypes';
-import {BookingDTO} from "../../types/BookingTypes"
+import { StateCreator } from "zustand";
+import {
+   BookingSliceType,
+   BookingRequestPayload,
+} from "../../types/sliceTypes/SliceTypes";
+import { BookingDTO } from "../../types/BookingTypes";
 
-export const createBookingSlice: StateCreator<BookingSliceType> = (set, get,store) => ({
-  bookings: [],
-  loading: false,
-  error: undefined,
+export const createBookingSlice: StateCreator<BookingSliceType> = (
+   set,
+   get,
+   store
+) => ({
+   bookings: [],
+   loading: false,
+   errorB: undefined,
+   setError: (error: string) => {
+      set({ errorB: error });
+   },
+   // Fetch bookings
+   fetchBookinngs: async () => {},
 
-  // Fetch bookings
-  fetchBookinngs: async () => {
-    
-  },
-
-  // Create booking
-  createBooking: async (payload: BookingRequestPayload) => {
-    set({ loading: true, error: undefined });
- 
-  },
+   // Create booking
+   createBooking: async (payload: BookingRequestPayload) => {
+      set({ loading: true, errorB: undefined });
+   },
 });
