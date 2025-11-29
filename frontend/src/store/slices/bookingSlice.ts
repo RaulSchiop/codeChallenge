@@ -5,7 +5,7 @@ import {
    BookingRequestPayloadFetch,
 } from "../../types/sliceTypes/SliceTypes";
 import { BookingDTO } from "../../types/BookingTypes";
-import { addBooking, getBookings } from "../../api/booking";
+import { addBooking, approveBooking, getBookings } from "../../api/booking";
 
 export const createBookingSlice: StateCreator<BookingSliceType> = (
    set,
@@ -41,6 +41,21 @@ export const createBookingSlice: StateCreator<BookingSliceType> = (
       try {
          set({ loading: true, errorB: undefined });
          const data = await getBookings();
+
+         set({ bookings: data, loading: false });
+      } catch (err: any) {
+         set({
+            errorB: err.message || "Failed to get ad spaces",
+            loading: false,
+         });
+      }
+   },
+
+   //reject booking
+   rejectBooking: async (id:number) => {
+      try {
+         set({ loading: true, errorB: undefined });
+         const data = await approveBooking(id);
 
          set({ bookings: data, loading: false });
       } catch (err: any) {

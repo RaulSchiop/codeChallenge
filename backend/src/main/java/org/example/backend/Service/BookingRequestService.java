@@ -73,7 +73,7 @@ public class BookingRequestService {
     }
 
 
-    public ResponseEntity<BookingRequest> approveBookingRequest(long id) {
+    public ResponseEntity<BookingDTO> approveBookingRequest(long id) {
 
         Optional<BookingRequest> optionalBooking = bookingRequestRepository.findById(id);
 
@@ -87,11 +87,11 @@ public class BookingRequestService {
 
         BookingRequest updatedBooking = bookingRequestRepository.save(booking);
 
-        return ResponseEntity.ok(updatedBooking);
+        return ResponseEntity.ok(BookingRequestMapper.toDto( updatedBooking));
     }
 
 
-    public ResponseEntity<BookingRequest> rejectBookingRequest(long id) {
+    public ResponseEntity<BookingDTO> rejectBookingRequest(long id) {
 
         Optional<BookingRequest> optionalBooking = bookingRequestRepository.findById(id);
 
@@ -105,7 +105,7 @@ public class BookingRequestService {
 
         BookingRequest updatedBooking = bookingRequestRepository.save(booking);
 
-        return ResponseEntity.ok(updatedBooking);
+        return ResponseEntity.ok(BookingRequestMapper.toDto( updatedBooking));
     }
 
 }

@@ -39,8 +39,40 @@ export async function getBookings() {
    }
 }
 
+export async function rejectBooking(id: number) {
+   try {
+      const res = await fetch(`${API_BASE}/${id}/reject`, {
+         method: "PATCH",
+         headers: {
+            "Content-Type": "application/json",
+         },
+      });
 
+      if (!res.ok) throw new Error("failed add bookings");
 
+      return await res.json();
+   } catch (err: any) {
+      console.log(err);
+      throw err;
+   }
+}
+
+export async function approveBooking(id: number) {
+   try {
+      const res = await fetch(`${API_BASE}/${id}/approve`, {
+         method: "PATCH",
+         headers: {
+            "Content-Type": "application/json",
+         },
+      });
+
+      if (!res.ok) throw new Error("failed add bookings");
+
+      return await res.json();
+   } catch (err: any) {
+      console.log(err);
+      throw err;
+   }
+}
 
 //booking list
-
