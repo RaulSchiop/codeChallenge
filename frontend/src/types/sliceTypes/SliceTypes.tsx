@@ -28,8 +28,8 @@ export interface BookingRequestPayload {
    adSpaceId: number;
    advertiserName: string;
    advertiserEmail: string;
-   startDate: string;
-   endDate: string;
+   startDate: Date;
+   endDate: Date;
    totalCost: number;
 }
 // {

@@ -108,7 +108,7 @@ export default function AdSpaceList() {
                   return matchesType && matchesCity;
                })
                .map((space) => (
-                  <Box>
+                  <Box key={space.id}>
                      <BookingRequestForm
                         adSpace={space}
                         open={dialog}

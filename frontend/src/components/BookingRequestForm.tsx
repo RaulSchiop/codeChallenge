@@ -19,6 +19,7 @@ import { AdSpaceDTO } from "../types/AdSpaceTypes";
 import { bookingRequestSchema } from "../schemas/schemas";
 import { BookingRequestPayload } from "../types/sliceTypes/SliceTypes";
 import { useStore } from "../store/useStores";
+import { addBooking } from "../api/booking";
 
 interface BookingRequestFormProps {
    open: boolean;
@@ -35,8 +36,8 @@ export default function BookingRequestForm({
       adSpaceId: adSpace.id,
       advertiserName: "",
       advertiserEmail: "",
-      startDate: "",
-      endDate: "",
+      startDate: new Date(),
+      endDate: new Date(),
       totalCost: 0,
    });
    const error = useStore((state) => state.errorB);
@@ -62,20 +63,42 @@ export default function BookingRequestForm({
    };
 
    const handleStartDateChange = (date: Dayjs | null) => {
+      if (!date) return;
+      const start = date.toDate();
       setFormData((prev) => ({
          ...prev,
-         startDate: date?.toString() || "",
+         startDate: start,
+         totalCost:
+            prev.endDate >= start
+               ? ((prev.endDate.getTime() - start.getTime()) /
+                    (1000 * 60 * 60 * 24) +
+                    1) *
+                 adSpace.pricePerDay
+               : prev.totalCost,
+      }));
+   };
+   
+   const handleEndDateChange = (date: Dayjs | null) => {
+      if (!date) return;
+      const end = date.toDate();
+      setFormData((prev) => ({
+         ...prev,
+         endDate: end,
+         totalCost:
+            end >= prev.startDate
+               ? ((end.getTime() - prev.startDate.getTime()) /
+                    (1000 * 60 * 60 * 24) +
+                    1) *
+                 adSpace.pricePerDay
+               : prev.totalCost,
       }));
    };
 
-   const handleEndDateChange = (date: Dayjs | null) => {
-      setFormData((prev) => ({ ...prev, endDate: date?.toString() || "" }));
-   };
-
-   const handleSubmit = () => {
+   const handleSubmit = async () => {
       try {
          const zodValidation = bookingRequestSchema.parse(formData);
-
+         await addBooking(formData);
+         handleClose();
          setError("");
       } catch (err: any) {
          console.log(err);

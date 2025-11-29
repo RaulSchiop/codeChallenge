@@ -12,8 +12,6 @@ export const bookingRequestSchema = z
             "Start data > end Date"
          ),
       endDate: z.date(),
-      totalCost: z.number().min(0),
-      pricePerDay: z.number().min(0),
    })
    .refine((data) => dayjs(data.endDate).isAfter(dayjs(data.startDate)), {
       message: "End date > start date",
@@ -22,12 +20,6 @@ export const bookingRequestSchema = z
    .refine(
       (data) => dayjs(data.endDate).diff(dayjs(data.startDate), "day") + 1 >= 7,
       { message: "Booking > 7 days", path: ["endDate"] }
-   )
-   .transform((data) => ({
-      ...data,
-      totalCost:
-         data.pricePerDay *
-         (dayjs(data.endDate).diff(dayjs(data.startDate), "day") + 1),
-   }));
+   );
 
 export type BookingRequestFormData = z.infer<typeof bookingRequestSchema>;
