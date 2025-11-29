@@ -1,13 +1,12 @@
 export enum AdSpaceType {
-  BILLBOARD = 'BILLBOARD',
-  DIGITAL = 'DIGITAL',
-  POSTER = 'POSTER',
- 
+   Billboard = "Billboard",
+   BusStop = "BusStop",
+   MallDisplay = "MallDisplay",
+   TransitAd = "TransitAd",
 }
 
 export enum AdSpaceAvailability {
-  AVAILABLE = 'AVAILABLE',
-  BOOKED = 'BOOKED',
-  MAINTENANCE = 'MAINTENANCE',
-  
+   Available = "Available",
+   Booked = "Booked",
+   Maintenance = "Maintenance",
 }

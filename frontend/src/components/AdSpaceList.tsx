@@ -13,6 +13,7 @@ import {
    Select,
    MenuItem,
    SelectChangeEvent,
+   TextField,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import BookingRequestForm from "./BookingRequestForm";
@@ -28,6 +29,10 @@ export default function AdSpaceList() {
 
    const handleChange = (event: SelectChangeEvent) => {
       setType(event.target.value);
+   };
+
+   const handleCityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      setCity(event.target.value);
    };
 
    useEffect(() => {
@@ -65,24 +70,19 @@ export default function AdSpaceList() {
                   label="Type"
                   onChange={handleChange}
                >
-                  <MenuItem value="BILLBOARD">BILLBOARD</MenuItem>
-                  <MenuItem value="DIGITAL">DIGITAL</MenuItem>
-                  <MenuItem value="POSTER">POSTER</MenuItem>
-               </Select>
-            </FormControl>
-            <FormControl fullWidth>
-               <InputLabel id="type-label">Type</InputLabel>
-               <Select
-                  labelId="type-label"
-                  value={city}
-                  label="City"
-                  onChange={handleChange}
-               >
+                  Billboard, BusStop, MallDisplay, TransitAd
                   <MenuItem value="Billboard">Billboard</MenuItem>
-                  <MenuItem value="Digital">Digital</MenuItem>
-                  <MenuItem value="Poster">Poster</MenuItem>
+                  <MenuItem value="BusStop">BusStop</MenuItem>
+                  <MenuItem value="MallDisplay">MallDisplay</MenuItem>
+                  <MenuItem value="TransitAd">TransitAd</MenuItem>
                </Select>
             </FormControl>
+            <TextField
+               fullWidth
+               label="Search City"
+               value={city}
+               onChange={handleCityChange}
+            />
          </Box>
 
          {loading && (
@@ -97,79 +97,89 @@ export default function AdSpaceList() {
          )}
 
          <List sx={{ mt: 2 }}>
-            {adSpaces.map((space) => (
-               <Box>
-                  <BookingRequestForm
-                     adSpace={space}
-                     open={dialog}
-                     handleClose={handleCloseDialog}
-                  ></BookingRequestForm>
-                  <Paper
-                     key={space.id}
-                     elevation={3}
-                     sx={{
-                        mb: 5,
+            {adSpaces
+               .filter((space) => {
+                  const matchesType = type
+                     ? space.type.toLowerCase() === type.toLowerCase()
+                     : true;
+                  const matchesCity = city
+                     ? space.location.toLowerCase().includes(city.toLowerCase())
+                     : true;
+                  return matchesType && matchesCity;
+               })
+               .map((space) => (
+                  <Box>
+                     <BookingRequestForm
+                        adSpace={space}
+                        open={dialog}
+                        handleClose={handleCloseDialog}
+                     ></BookingRequestForm>
+                     <Paper
+                        key={space.id}
+                        elevation={3}
+                        sx={{
+                           mb: 5,
 
-                        borderRadius: 2,
-                        transition: "0.2s",
-                        "&:hover": {
-                           boxShadow: 6,
-                           transform: "scale(1.01)",
-                        },
-                     }}
-                  >
-                     <ListItem>
-                        <Box
-                           display="flex"
-                           justifyContent="space-between"
-                           width="100%"
-                           alignItems="center"
-                           color="black"
-                        >
-                           <Box>
-                              <Typography variant="h6" fontWeight={600}>
-                                 {space.name}
+                           borderRadius: 2,
+                           transition: "0.2s",
+                           "&:hover": {
+                              boxShadow: 6,
+                              transform: "scale(1.01)",
+                           },
+                        }}
+                     >
+                        <ListItem>
+                           <Box
+                              display="flex"
+                              justifyContent="space-between"
+                              width="100%"
+                              alignItems="center"
+                              color="black"
+                           >
+                              <Box>
+                                 <Typography variant="h6" fontWeight={600}>
+                                    {space.name}
+                                 </Typography>
+                                 <Typography color="text.secondary">
+                                    {space.location}
+                                 </Typography>
+                              </Box>
+
+                              <Typography variant="body1" fontWeight={500}>
+                                 ${space.pricePerDay}/day
                               </Typography>
-                              <Typography color="text.secondary">
-                                 {space.location}
+
+                              <Typography
+                                 sx={{
+                                    px: 2,
+                                    py: 0.5,
+                                    borderRadius: "20px",
+                                    bgcolor: "white",
+                                    color: "blue",
+                                    fontWeight: 600,
+                                 }}
+                              >
+                                 {space.type}
                               </Typography>
+
+                              <Button
+                                 variant="contained"
+                                 size="small"
+                                 sx={{
+                                    ml: 2,
+                                    textTransform: "none",
+                                    borderRadius: "10px",
+                                    fontWeight: 300,
+                                 }}
+                                 onClick={handleOpenDialog}
+                              >
+                                 Book Now
+                              </Button>
                            </Box>
-
-                           <Typography variant="body1" fontWeight={500}>
-                              ${space.pricePerDay}/day
-                           </Typography>
-
-                           <Typography
-                              sx={{
-                                 px: 2,
-                                 py: 0.5,
-                                 borderRadius: "20px",
-                                 bgcolor: "white",
-                                 color: "blue",
-                                 fontWeight: 600,
-                              }}
-                           >
-                              {space.type}
-                           </Typography>
-
-                           <Button
-                              variant="contained"
-                              size="small"
-                              sx={{
-                                 ml: 2,
-                                 textTransform: "none",
-                                 borderRadius: "10px",
-                                 fontWeight: 300,
-                              }}
-                              onClick={handleOpenDialog}
-                           >
-                              Book Now
-                           </Button>
-                        </Box>
-                     </ListItem>
-                  </Paper>
-               </Box>
-            ))}
+                        </ListItem>
+                     </Paper>
+                  </Box>
+               ))}
          </List>
       </Box>
    );
