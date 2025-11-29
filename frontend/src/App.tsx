@@ -1,14 +1,12 @@
-import React from 'react';
-import AdSpaceList from './components/AdSpaceList';
-import { Typography } from "@mui/material";
+import AdSpaceList from "./components/AdSpaceList";
+
 
 function App() {
-  return (
-    <>
-    <Typography>Chellange</Typography>
-    <AdSpaceList></AdSpaceList>
-    </>
-  );
+   return (
+      <>
+         <AdSpaceList></AdSpaceList>
+      </>
+   );
 }
 
 export default App;
