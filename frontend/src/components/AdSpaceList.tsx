@@ -8,6 +8,11 @@ import {
    CircularProgress,
    Paper,
    Alert,
+   FormControl,
+   InputLabel,
+   Select,
+   MenuItem,
+   SelectChangeEvent,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import BookingRequestForm from "./BookingRequestForm";
@@ -18,6 +23,12 @@ export default function AdSpaceList() {
    const loading = useStore((state) => state.loading);
    const error = useStore((state) => state.error);
    const [dialog, setDialog] = useState(false);
+   const [type, setType] = useState("");
+   const [city, setCity] = useState("");
+
+   const handleChange = (event: SelectChangeEvent) => {
+      setType(event.target.value);
+   };
 
    useEffect(() => {
       getSpaces();
@@ -45,6 +56,34 @@ export default function AdSpaceList() {
          >
             Ad Space List
          </Typography>
+         <Box mb={3}>
+            <FormControl fullWidth sx={{ marginBottom: 3 }}>
+               <InputLabel id="type-label">Type</InputLabel>
+               <Select
+                  labelId="type-label"
+                  value={type}
+                  label="Type"
+                  onChange={handleChange}
+               >
+                  <MenuItem value="BILLBOARD">BILLBOARD</MenuItem>
+                  <MenuItem value="DIGITAL">DIGITAL</MenuItem>
+                  <MenuItem value="POSTER">POSTER</MenuItem>
+               </Select>
+            </FormControl>
+            <FormControl fullWidth>
+               <InputLabel id="type-label">Type</InputLabel>
+               <Select
+                  labelId="type-label"
+                  value={city}
+                  label="City"
+                  onChange={handleChange}
+               >
+                  <MenuItem value="Billboard">Billboard</MenuItem>
+                  <MenuItem value="Digital">Digital</MenuItem>
+                  <MenuItem value="Poster">Poster</MenuItem>
+               </Select>
+            </FormControl>
+         </Box>
 
          {loading && (
             <Box display="flex" justifyContent="center" mt={6}>
@@ -61,7 +100,7 @@ export default function AdSpaceList() {
             {adSpaces.map((space) => (
                <Box>
                   <BookingRequestForm
-                    adSpace={space}
+                     adSpace={space}
                      open={dialog}
                      handleClose={handleCloseDialog}
                   ></BookingRequestForm>
