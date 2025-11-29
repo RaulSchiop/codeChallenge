@@ -27,17 +27,15 @@ public class AdSpaceController {
     @GetMapping()
     public ResponseEntity<List<AdSpace>> getAdSpaces() {
 
-        //dummy for now
-        return ResponseEntity.ok().build();
+        return addSpaceService.getAdSpaces();
     }
 
 
     //GET /api/v1/ad-spaces/{id}
     @GetMapping("/{id}")
-    public ResponseEntity<?> getAdSpaceById(@PathVariable("id") String id) {
+    public ResponseEntity<?> getAdSpaceById( @PathVariable Long id) {
 
-        //dummy for now
-        return ResponseEntity.ok().build();
+        return addSpaceService.getAdSpaceById(id);
     }
 
 }
