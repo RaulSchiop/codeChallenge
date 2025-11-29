@@ -17,25 +17,20 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 
-
 export default function BookingRequestList() {
    const bookings = useStore((state) => state.bookings || []);
    const getBookings = useStore((state) => state.getBookings);
    const loading = useStore((state) => state.loading);
 
-   const [type, setType] = useState("");
-
+   const [status, setStatus] = useState("");
 
    const handleChange = (event: SelectChangeEvent) => {
-      setType(event.target.value);
+      setStatus(event.target.value);
    };
-
- 
 
    useEffect(() => {
       getBookings();
    }, [getBookings]);
-
 
    return (
       <Box p={4}>
@@ -53,21 +48,18 @@ export default function BookingRequestList() {
          </Typography>
          <Box mb={3}>
             <FormControl fullWidth sx={{ marginBottom: 3 }}>
-               <InputLabel id="type-label">Type</InputLabel>
+               <InputLabel id="type-label">Status</InputLabel>
                <Select
                   labelId="type-label"
-                  value={type}
+                  value={status}
                   label="Type"
                   onChange={handleChange}
                >
-                  Billboard, BusStop, MallDisplay, TransitAd
-                  <MenuItem value="Billboard">Billboard</MenuItem>
-                  <MenuItem value="BusStop">BusStop</MenuItem>
-                  <MenuItem value="MallDisplay">MallDisplay</MenuItem>
-                  <MenuItem value="TransitAd">TransitAd</MenuItem>
+                  <MenuItem value="Pending">Pending</MenuItem>
+                  <MenuItem value="Approved">Approved</MenuItem>
+                  <MenuItem value="Rejected">Rejected</MenuItem>
                </Select>
             </FormControl>
-           
          </Box>
 
          {loading && (
@@ -79,16 +71,16 @@ export default function BookingRequestList() {
          <List sx={{ mt: 2 }}>
             {bookings
                .filter((space) => {
-                  const matchesStatus = type
-                     ? space.status.toLowerCase() === type.toLowerCase()
+                  const matchesStatus = status
+                     ? space.status.toLowerCase() === status.toLowerCase()
                      : true;
 
                   return matchesStatus;
                })
-               .map((space) => (
-                  <Box key={space.adSpaceName}>
+               .map((space, index) => (
+                  <Box key={index}>
                      <Paper
-                        key={space.adSpaceName}
+                        key={index}
                         elevation={3}
                         sx={{
                            mb: 5,
@@ -131,9 +123,16 @@ export default function BookingRequestList() {
                                     py: 0.5,
                                     borderRadius: "20px",
                                     bgcolor: "white",
-                                    color: "blue",
+
                                     fontWeight: 600,
                                  }}
+                                 color={`${
+                                    space.status === "Pending"
+                                       ? "black"
+                                       : space.status === "Approved"
+                                       ? "green"
+                                       : space.status === "Rejected" && "red"
+                                 }`}
                               >
                                  {space.status}
                               </Typography>

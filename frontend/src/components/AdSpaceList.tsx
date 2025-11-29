@@ -70,7 +70,6 @@ export default function AdSpaceList() {
                   label="Type"
                   onChange={handleChange}
                >
-                  Billboard, BusStop, MallDisplay, TransitAd
                   <MenuItem value="Billboard">Billboard</MenuItem>
                   <MenuItem value="BusStop">BusStop</MenuItem>
                   <MenuItem value="MallDisplay">MallDisplay</MenuItem>
@@ -99,6 +98,7 @@ export default function AdSpaceList() {
          <List sx={{ mt: 2 }}>
             {adSpaces
                .filter((space) => {
+                  if (!status) return true;
                   const matchesType = type
                      ? space.type.toLowerCase() === type.toLowerCase()
                      : true;
