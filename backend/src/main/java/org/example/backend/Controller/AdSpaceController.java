@@ -1,10 +1,43 @@
 package org.example.backend.Controller;
 
 
+import org.example.backend.Entity.AddSpace;
+import org.example.backend.Service.AddSpaceService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/ad-spaces")
 public class AdSpaceController {
+
+    private final AddSpaceService addSpaceService;
+
+    @Autowired
+    public AdSpaceController(AddSpaceService addSpaceService) {
+        this.addSpaceService = addSpaceService;
+    }
+
+    //GET /api/v1/ad-spaces
+    @GetMapping()
+    public ResponseEntity<List<AddSpace>> getAdSpaces() {
+
+        //dummy for now
+        return ResponseEntity.ok().build();
+    }
+
+
+    //GET /api/v1/ad-spaces/{id}
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getAdSpaceById(@PathVariable("id") String id) {
+
+        //dummy for now
+        return ResponseEntity.ok().build();
+    }
+
 }
