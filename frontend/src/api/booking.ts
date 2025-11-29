@@ -1,6 +1,6 @@
-import { BookingRequestPayload } from "../types/sliceTypes/SliceTypes";
+import { BookingRequestPayloadFetch } from "../types/sliceTypes/SliceTypes";
 
-export async function addBooking(bookingData: BookingRequestPayload) {
+export async function addBooking(bookingData: BookingRequestPayloadFetch) {
    try {
       const res = await fetch("/api/v1/booking-requests", {
          method: "POST",

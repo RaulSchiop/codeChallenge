@@ -42,7 +42,7 @@ export default function BookingRequestForm({
    });
    const error = useStore((state) => state.errorB);
    const setError = useStore((state) => state.setError);
-
+   console.log(formData);
    useEffect(() => {
       if (formData.startDate && formData.endDate) {
          const start = dayjs(formData.startDate);
@@ -77,7 +77,7 @@ export default function BookingRequestForm({
                : prev.totalCost,
       }));
    };
-   
+
    const handleEndDateChange = (date: Dayjs | null) => {
       if (!date) return;
       const end = date.toDate();
@@ -93,11 +93,20 @@ export default function BookingRequestForm({
                : prev.totalCost,
       }));
    };
-
    const handleSubmit = async () => {
       try {
-         const zodValidation = bookingRequestSchema.parse(formData);
-         await addBooking(formData);
+         
+         const formattedData = {
+            ...formData,
+            startDate: dayjs(formData.startDate).format("YYYY-MM-DD"),
+            endDate: dayjs(formData.endDate).format("YYYY-MM-DD"),
+         };
+
+         
+         bookingRequestSchema.parse(formData);
+
+         
+         await addBooking(formattedData);
          handleClose();
          setError("");
       } catch (err: any) {

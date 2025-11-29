@@ -32,6 +32,15 @@ export interface BookingRequestPayload {
    endDate: Date;
    totalCost: number;
 }
+
+export interface BookingRequestPayloadFetch {
+   adSpaceId: number;
+   advertiserName: string;
+   advertiserEmail: string;
+   startDate: string;
+   endDate: string;
+   totalCost: number;
+}
 // {
 //   "adSpaceId": 1,
 //   "advertiserName": "Acme Corp",
