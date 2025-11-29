@@ -18,7 +18,7 @@ public class BookingRequest {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "ad_space_id")
-    private AddSpace adSpace;
+    private AdSpace adSpace;
 
     @Column(nullable = false)
     private String advertiserName;

@@ -2,7 +2,6 @@ package org.example.backend.Entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Getter;
 import org.example.backend.Enums.AdSpaceEnums.Availability;
 import org.example.backend.Enums.AdSpaceEnums.Type;
 import org.hibernate.annotations.CreationTimestamp;
@@ -13,7 +12,7 @@ import java.util.List;
 
 @Entity
 @Data
-public class AddSpace {
+public class AdSpace {
 
 
     @Id
@@ -30,7 +29,7 @@ public class AddSpace {
     private String location;
 
     @Column(nullable = false)
-    private Integer pricePerDay;
+    private Float pricePerDay;
 
     @Column(nullable = false)
     private Availability status;

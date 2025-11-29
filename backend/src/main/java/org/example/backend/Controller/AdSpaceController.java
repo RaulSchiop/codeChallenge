@@ -1,7 +1,7 @@
 package org.example.backend.Controller;
 
 
-import org.example.backend.Entity.AddSpace;
+import org.example.backend.Entity.AdSpace;
 import org.example.backend.Service.AddSpaceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +25,7 @@ public class AdSpaceController {
 
     //GET /api/v1/ad-spaces
     @GetMapping()
-    public ResponseEntity<List<AddSpace>> getAdSpaces() {
+    public ResponseEntity<List<AdSpace>> getAdSpaces() {
 
         //dummy for now
         return ResponseEntity.ok().build();
