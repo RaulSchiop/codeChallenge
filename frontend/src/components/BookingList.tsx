@@ -136,6 +136,38 @@ export default function BookingRequestList() {
                               >
                                  {space.status}
                               </Typography>
+                              <Box>
+                                 {space.status === "Pending" && (
+                                    <Button
+                                       variant="contained"
+                                       size="small"
+                                       sx={{
+                                          ml: 2,
+                                          textTransform: "none",
+                                          borderRadius: "10px",
+                                          fontWeight: 300,
+                                          background: "green",
+                                       }}
+                                    >
+                                       Approve
+                                    </Button>
+                                 )}
+                                 {space.status === "Pending" && (
+                                    <Button
+                                       variant="contained"
+                                       size="small"
+                                       sx={{
+                                          ml: 2,
+                                          textTransform: "none",
+                                          borderRadius: "10px",
+                                          fontWeight: 300,
+                                          background: "red",
+                                       }}
+                                    >
+                                       Reject
+                                    </Button>
+                                 )}
+                              </Box>
                            </Box>
                         </ListItem>
                      </Paper>
