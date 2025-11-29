@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,6 +48,15 @@ public class BookingRequestService {
 
 
             BookingRequest bookingRequest = BookingRequestMapper.toEntity(dto, adSpace);
+
+            if(bookingRequest.getStartDate().isAfter(bookingRequest.getEndDate())) {
+                return ResponseEntity.badRequest().body(null);
+            }else if( ChronoUnit.DAYS.between(
+                    bookingRequest.getStartDate(),
+                    bookingRequest.getEndDate()
+            )<7){
+                return ResponseEntity.badRequest().body(null);
+            }
 
             BookingRequest savedRequest = bookingRequestRepository.save(bookingRequest);
             adSpace.getBookings().add(savedRequest);

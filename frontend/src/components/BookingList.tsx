@@ -18,7 +18,8 @@ import {
 import { useEffect, useState } from "react";
 
 export default function BookingRequestList() {
-   const bookings = useStore((state) => state.bookings || []);
+   const bookingsRaw = useStore((state) => state.bookings);
+   const bookings = Array.isArray(bookingsRaw) ? bookingsRaw : [];
    const getBookings = useStore((state) => state.getBookings);
    const rejectBooking = useStore((state) => state.rejectBooking);
    const approveBooking = useStore((state) => state.approveBooking);
@@ -33,7 +34,7 @@ export default function BookingRequestList() {
 
    useEffect(() => {
       getBookings();
-   }, [getBookings]);
+   }, [getBookings, bookings]);
 
    return (
       <Box p={4}>
@@ -74,11 +75,9 @@ export default function BookingRequestList() {
          <List sx={{ mt: 2 }}>
             {bookings
                .filter((space) => {
-                  const matchesStatus = status
+                  return status
                      ? space.status.toLowerCase() === status.toLowerCase()
                      : true;
-
-                  return matchesStatus;
                })
                .map((booking, index) => (
                   <Box key={index}>
