@@ -33,10 +33,10 @@ public class AddSpaceService {
     }
 
 
-    public ResponseEntity<AdSpace> getAdSpaceById( long id) {
+    public ResponseEntity<AdSpaceDTO> getAdSpaceById( long id) {
 
         return adSpaceRepository.findById(id)
-                .map(adSpace -> ResponseEntity.ok().body(adSpace))
+                .map(adSpace -> ResponseEntity.ok().body(AdSpaceMapper.toDTO(adSpace)))
                 .orElseGet(() -> ResponseEntity.status(404).body(null));
 
     }

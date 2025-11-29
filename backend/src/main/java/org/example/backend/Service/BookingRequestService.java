@@ -2,6 +2,7 @@ package org.example.backend.Service;
 
 
 import org.example.backend.Dto.Booking.BookingDTO;
+import org.example.backend.Dto.Booking.BookingRequestDTO;
 import org.example.backend.Entity.AdSpace;
 import org.example.backend.Entity.BookingRequest;
 import org.example.backend.Enums.BookingRequestEnums.Status;
@@ -38,29 +39,25 @@ public class BookingRequestService {
     }
 
 
-    public ResponseEntity<BookingRequest> addBookingRequest(BookingRequest bookingRequest) {
+    public ResponseEntity<BookingDTO> addBookingRequest(BookingRequestDTO dto) {
         try {
-            if (bookingRequest.getId() != null &&
-                    bookingRequestRepository.findById(bookingRequest.getId()).isPresent()) {
-                return ResponseEntity.status(409).body(bookingRequest);
-            }
 
-
-            AdSpace adSpace = adSpaceRepository.findById(bookingRequest.getAdSpace().getId())
+            AdSpace adSpace = adSpaceRepository.findById(dto.getAdSpaceId())
                     .orElseThrow(() -> new RuntimeException("AdSpace not found"));
 
 
-            bookingRequest.setAdSpace(adSpace);
-
+            BookingRequest bookingRequest = BookingRequestMapper.toEntity(dto, adSpace);
 
             BookingRequest savedRequest = bookingRequestRepository.save(bookingRequest);
-
-
             adSpace.getBookings().add(savedRequest);
             adSpaceRepository.save(adSpace);
+            BookingDTO responseDto = BookingRequestMapper.toDto(savedRequest);
 
-            return ResponseEntity.ok(savedRequest);
+            return ResponseEntity.ok(responseDto);
 
+        } catch (RuntimeException e) {
+
+            return ResponseEntity.status(404).body(null);
         } catch (Exception e) {
             return ResponseEntity.status(500).body(null);
         }

@@ -6,16 +6,14 @@ import org.example.backend.Enums.BookingRequestEnums.Status;
 import java.time.LocalDate;
 
 @Data
-public class BookingDTO {
+public class BookingRequestDTO {
 
-    private String adSpaceName;
+    private Long adSpaceId;
     private String advertiserName;
+    private String advertiserEmail;
     private LocalDate startDate;
     private LocalDate endDate;
     private Status status;
     private Integer totalCost;
 
-
 }
-
-

@@ -1,5 +1,6 @@
 package org.example.backend.Controller;
 import org.example.backend.Dto.Booking.BookingDTO;
+import org.example.backend.Dto.Booking.BookingRequestDTO;
 import org.example.backend.Entity.BookingRequest;
 import org.example.backend.Service.BookingRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ public class BookingRequestController {
 
     //POST /api/v1/booking-requests
     @PostMapping()
-    public ResponseEntity<?> addBookingRequest(@RequestBody BookingRequest bookingRequest) {
+    public ResponseEntity<?> addBookingRequest(@RequestBody BookingRequestDTO bookingRequest) {
 
         return bookingRequestService.addBookingRequest(bookingRequest);
 
